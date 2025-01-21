@@ -1,0 +1,20 @@
+1) If you tried to solve cartpole using a tabular approach (e.g. Q-learning or model-based RL), how big would the state space be?
+The state space would be infinite because the four state variables are all continuous. Tabular approach uses
+a finite table of state-action pairs so mapping out an infinite amount of states would be impossible.
+The only possible way to work around this is to discretize them into bins like how we used histogram 
+gradient boosting.
+
+2) If you tried to solve tic-tac-toe using function approximation, what approach would you use? Include enough detail to show that you've thought it through.
+The approach that we would that would be to use deep q-learning (DQN), where a neural network approximates
+the Q-values for the state-action pairs. We could represent the board as a vector with 9 features. Each
+space on the board would be encoded as +1 for the learning agent, -1 for the opponent or 0 for empty. 
+The neural network would predict the xpected reward for each possible move, and actions using an epsilon-greedy
+policy to balance exploration and exploitation much like we used in our cartpole solution. We would then 
+train the network, storing each game in a replay buffer and then updating the network by minimizing the loss
+between predicted Q-values and target values.
+
+3) Describe an experience you had while working on this assignment in which you learned something.
+One thing we experienced where we learned something is when we were playing around with our replay buffer
+for the cartpole solution, we suddenly started to see consistent drops in performance. This was mainly
+due to the bin size being low. Since it randomly picks values, if it somehow picks a bunch of small values
+than it lead to performance loss. With a bigger bin size, more values could be sampled.
